@@ -20,3 +20,6 @@
 - 成功把 `stardew-wiki` 綁定到 Telegram 群組並做到 mention-gated 回覆。
 - 修正 sandbox 依賴安裝：改用 `/workspace/.venv`；補齊 sandbox image 的 `python3-venv`；並在 `sandbox.docker.env` 注入 `OLLAMA_HOST`。
 - 將 `~/.openclaw/workspaces/stardew-wiki-agent` 初始化為 git repo 並 push 到：`git@github.com:TommyYeung660/openclaw-stardew-wiki-agent.git`。
+
+## 操作規則（Tommy）
+- **任何會影響 OpenClaw 服務狀態的命令（例如 `openclaw gateway restart` / start / stop / update 等）必須先等 Tommy 確認後先可以執行。**
