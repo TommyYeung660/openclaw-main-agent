@@ -30,15 +30,8 @@
 - **必須寫改動注解文檔**：同一個備份時間戳，另外建立說明檔：`openclaw.json.bak.YYYYMMDDHHmm_changed.md`。
 - **備份與注解存放路徑**：統一放在 `/Users/admin/.openclaw/openclaw_json_bak/`。
 
-## Sub agent / Cron 設計準則（Tommy 已確認，2026-02-06）
-1) **需要調用 OpenClaw bundle 路徑（例如 `/opt/homebrew/...`）或必須訪問 workspace 以外固定目錄**：預設 `sandbox.mode: off`（除非把依賴搬入 workspace 或提供專用 tool）。
-2) **在 sandbox 環境**：`exec` 可以視為可安全放行，但要配套：
-   - `sandbox.scope: agent`
-   - `workspaceAccess: ro/rw` 控制
-   - deny 外部面（browser/web_fetch/web_search 等）
-   - SOUL/skill 寫明「只允許跑哪一條命令/哪個腳本」（命令白名單思路）
-3) **cron-watch/監測型 agent**：回答必須以 `cron.list` / `cron.runs` 作唯一資料來源；報告要包含「資料完整性」聲明（昨日是否存在 job、runs 記錄是否覆蓋昨日），避免 0 runs 被誤解。
-4) **cron 通知採單一路徑**：
-   - 要嘛用 cron delivery announce（to=正確 chat id）
-   - 要嘛 `delivery.mode: none` + skill 內 `message.send`
-   不混用；排錯/驗證優先用 one-shot `schedule.kind=at` job（必要時 `cron.wake`）。
+## Cron SOP（Tommy 已確認，2026-02-09）
+- 所有現行 cron 規則已整理到：`docs/cron-sop.md`
+- 之後新增/修改 cron job、以及 cron-watch agent 的工作，請以該 SOP 為準。
+
+（舊條目：2026-02-06 的 Cron 設計準則已被 cron-sop.md 吸收整合。）
