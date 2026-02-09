@@ -1,0 +1,35 @@
+===== Cron Daily Report Log - 2026-02-07 =====
+Generated: 2026-02-08 16:39 (Asia/Hong_Kong)
+
+EXECUTION SUMMARY:
+- Job/工作失敗: 0 次
+- 通知/Telegram 失敗: 3 次（發生於 2026-02-06，非本日）
+- 總執行次數（記錄）: 4 次
+- 資料完整性: 不完整
+
+JOBS ANALYZED:
+1. moltbook-agent hourly auto-learn (14788e83-f3de-49ca-9900-f87c2b9792c1)
+   - Expected: 24 runs
+   - Recorded: 4 runs (all ok)
+   - Issue: Missing 20/24 runs; some timestamps appear from 2026-02-06
+
+2. openclaw nightly backup + git push (bad1f079-2537-47e0-a0bd-a1589e747eab)
+   - Expected: 1 run (01:00)
+   - Recorded: 0 runs
+   - Issue: No runs history available
+
+3. cron-watch daily report (a79ea6e5-0e56-41a5-9f42-9e63a9e3e068)
+   - Expected: 1 run (08:00 for 2026-02-06 report)
+   - Recorded: 0 runs for 2026-02-07 (expected)
+   - Note: 3 Telegram send failures recorded for 2026-02-06 (wrong chat_id issue)
+
+DATA INTEGRITY WARNING:
+- cron.runs history appears incomplete for multiple jobs
+- Cannot guarantee accurate failure counts due to missing runs
+- Timestamp anomalies detected (some 2026-02-07 entries show 2026-02-06 timestamps)
+
+REPORT FILES:
+- Markdown report: /Users/admin/.openclaw/workspace/main-agent/reports/2026-02-07.md
+- Log file: /Users/admin/.openclaw/workspace/main-agent/logs/daily-report-2026-02-07.log
+
+===== End of Log =====

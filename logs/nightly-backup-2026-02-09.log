@@ -1,0 +1,31 @@
+===== NIGHTLY BACKUP START 2026-02-09 00:20:29 =====
+[2026-02-09 00:20:29] Backup start: 2026-02-09
+[2026-02-09 00:20:29] Rsync workspace: cron-watch-agent
+[2026-02-09 00:20:29] Rsync workspace: main-agent
+[2026-02-09 00:20:29] Rsync workspace: moltbook-agent
+[2026-02-09 00:20:29] Rsync workspace: moltiert-agent
+[2026-02-09 00:20:29] Rsync workspace: nano-banana-pro-agent
+[2026-02-09 00:20:29] Rsync workspace: stardew-wiki-agent
+[2026-02-09 00:20:31] Rsync workspace: trade-agent
+[2026-02-09 00:20:31] Rsync .openclaw config (excluding media/)
+[2026-02-09 00:20:42] Git push phase
+[2026-02-09 00:20:42] Commit+push: moltbook-agent
+To github.com:TommyYeung660/openclaw-moltbook-agent.git
+   64317db..b39dff3  main -> main
+[2026-02-09 00:20:45] Backup done: /Users/admin/openclaw_backup/nightly/2026-02-09
+Backup completed OK. Dest: /Users/admin/openclaw_backup/nightly/2026-02-09
+===== NIGHTLY BACKUP END 2026-02-09 00:20:45 exit=0 =====
+===== NIGHTLY BACKUP START 2026-02-09 01:02:06 =====
+[2026-02-09 01:02:06] Backup start: 2026-02-09
+[2026-02-09 01:02:06] Rsync workspace: cron-watch-agent
+[2026-02-09 01:02:06] Rsync workspace: main-agent
+[2026-02-09 01:02:06] Rsync workspace: moltbook-agent
+[2026-02-09 01:02:06] Rsync workspace: moltiert-agent
+[2026-02-09 01:02:06] Rsync workspace: nano-banana-pro-agent
+[2026-02-09 01:02:06] Rsync workspace: stardew-wiki-agent
+[2026-02-09 01:02:06] Rsync workspace: trade-agent
+[2026-02-09 01:02:06] Rsync .openclaw config (excluding media/)
+[2026-02-09 01:02:07] Git push phase
+[2026-02-09 01:02:07] Backup done: /Users/admin/openclaw_backup/nightly/2026-02-09
+Backup completed OK. Dest: /Users/admin/openclaw_backup/nightly/2026-02-09
+===== NIGHTLY BACKUP END 2026-02-09 01:02:07 exit=0 =====

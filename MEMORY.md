@@ -34,4 +34,14 @@
 - 所有現行 cron 規則已整理到：`docs/cron-sop.md`
 - 之後新增/修改 cron job、以及 cron-watch agent 的工作，請以該 SOP 為準。
 
+### Cron 常見坑修正紀錄：moltbook-agent hourly auto-learn（2026-02-09）
+- 症狀：cron run summary 出現「表面 ok，但其實報錯」；主要兩類錯：
+  - `exec host not allowed`：agent 用 `tools.exec` 時誤用 `host="gateway"`（或 gateway policy 禁止 host exec），導致被拒絕；後續改用 `host="target"` 才成功。
+  - `zsh: no such file or directory`：把複雜命令包成 `bash -c '{ ... }'` + 各種引號/重導向，容易在 zsh 解析出錯。
+- 修正（方案 1）：只改 cron job 的 payload 指令（不改 gateway 設定）：
+  - 強制：所有 `exec` 必須用 `host="target"`；禁止 `host="gateway"`。
+  - 禁止：`bash -c '{ ... }'` 這種包裝。
+  - 建議：log 用「逐行/純 block」寫法（`{ ... } >> "$LOG" 2>&1`），避免 quoting/重導向混亂。
+- 驗證：修正後 13:00 自然 run 成功（exit=0），且不再出現上述兩類錯。
+
 （舊條目：2026-02-06 的 Cron 設計準則已被 cron-sop.md 吸收整合。）
