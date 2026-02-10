@@ -11,3 +11,11 @@
 [2026-02-10 01:02:17] Rsync .openclaw config (excluding media/)
 [2026-02-10 01:02:43] Git push phase
 [2026-02-10 01:02:43] Commit+push: main-agent
+To github.com:TommyYeung660/openclaw-main-agent.git
+   d533e66..005cc4c  main -> main
+[2026-02-10 01:02:46] Commit+push: moltbook-agent
+To github.com:TommyYeung660/openclaw-moltbook-agent.git
+   b39dff3..9060d6e  main -> main
+[2026-02-10 01:02:50] Backup done: /Users/admin/openclaw_backup/nightly/2026-02-10
+Backup completed OK. Dest: /Users/admin/openclaw_backup/nightly/2026-02-10
+===== NIGHTLY BACKUP END 2026-02-10 01:02:50 exit=0 =====

@@ -68,6 +68,11 @@ LOG=<log_dir>/<name>-$TS.log
   - 每個 job 的 runs 統計（成功/失敗）
   - **資料完整性聲明**：`cron.runs` 是否覆蓋整個區間；若不完整，不能把缺口當作「0 runs」
 
+#### 2.1.1 重要：cron.runs(jobId) 必須用完整 UUID（避免誤報「無 runs」）
+- **只能**將 `cron.list()` 回傳的 `job.id`（完整 UUID，例如 `14788e83-f3de-49ca-9900-f87c2b9792c1`）傳入 `cron.runs(jobId)`。
+- **禁止**使用「短 id / prefix」（例如 `14788e83`）去 call `cron.runs`：系統會回空陣列，造成 cron-watch **假陰性**（誤判 runs 遺失）。
+- 短 id 只可以用於報告顯示（人類易讀），不可用作任何 API 參數。
+
 ### 2.2 固定輸出落點（避免寫到 main-agent）
 cron-watch 報告/日誌必須硬性鎖定：
 - 報告：
