@@ -13,7 +13,7 @@
   - sandbox 不會繼承 host env：需用 `sandbox.docker.env` 注入（例：`OLLAMA_HOST=http://host.docker.internal:11434`）。
   - 改 sandbox config 後要 `openclaw sandbox recreate --agent <id>`。
 - **Sub agent system prompt 必須嚴格限制**：只回答指定領域、只允許白名單命令（例：`./.venv/bin/python3 scripts/query.py ...`），拒絕其他 exec/寫檔/web 工具/無關問題。
-- **Python 依賴管理標準（Tommy 要求）**：自定義 skill 統一採用 Python + uv（`pyproject.toml` + `uv.lock`），sandbox setupCommand 走 `uv venv` + `uv sync`。
+- **Python 依賴管理標準（Tommy 要求）**：自定義 skill 統一採用 Python + uv（`pyproject.toml` + `uv.lock`），sandbox setupCommand 走 `uv venv` + `uv sync`。所有現在和將來的 Python 項目都必須用 uv 管理和執行（`uv sync` 安裝依賴、`uv run python <script>` 執行），禁止直接用 `python` 或 `pip`。
 - **交付規則**：新增/修好 sub agent 後，必須將該 workspace 推送到 GitHub（含 `.gitignore` 排除 venv/data/log/memory 等大檔）。
 
 ## 實例：Stardew Wiki sub agent（2026-02-05）
@@ -45,3 +45,26 @@
 - 驗證：修正後 13:00 自然 run 成功（exit=0），且不再出現上述兩類錯。
 
 （舊條目：2026-02-06 的 Cron 設計準則已被 cron-sop.md 吸收整合。）
+
+## 實例：Trade Agent sub agent（2026-02-10）
+- 新增 `trade-agent`，財經項目管理者，綁定 Telegram 群組 `-5036824968`（mention-gated）。
+- model: `github-copilot/gpt-5.2`，sandbox off（需存取其他 sub agent workspace）。
+- workspace: `/Users/admin/.openclaw/workspace/trade-agent`，管理三個子項目：tty_dexter、qlib_market_scanner、dexter_trading_agents。
+- 子項目各有自己嘅 git repo，workspace .gitignore 排除佢哋，只 track agent config 檔案。
+- 可讀取 moltbook-agent workspace 嘅 memory 做跨 agent 學習。
+- daily learning cron job（trade-agent daily learning）：每日 09:00 HKT，isolated agentTurn，搜尋財經知識 + 讀 moltbook memory + 寫總結 + 通知群組。
+- Git repo: `git@github.com:TommyYeung660/openclaw-trade-agent.git`
+- 已安裝 skills：finnhub（需 FINNHUB_API_KEY）、agentic-paper-digest（需 OPENAI_API_KEY 或 LITELLM_API_KEY）
+
+## Skill 數據源使用原則（Tommy 明確要求，2026-02-10）
+- **所有新 skill 嘅數據源只限 sub agent 自己學習用**，不可以直接整合入去現有項目
+- **不可以打亂現有項目已實現嘅數據源邏輯** — 每個項目有自己嘅數據架構
+- **只可以提出改進「建議」** — 學習完後認為某數據源可以改善項目，寫成建議等人類審批
+- 已寫入 trade-agent 嘅 SOUL.md 同每個 skill 嘅 SKILL.md
+- 此原則適用於所有 sub agent，不止 trade-agent
+
+## Skill Vetting 流程（2026-02-10）
+- 安裝 skill-vetting 到 main-agent workspace（`skills/skill-vetting/`）
+- 包含 scan.py（Python 安全掃描器，7 類風險：code execution / subprocess / obfuscation / network / file ops / env access / prompt injection）
+- 之後安裝任何新 skill **必須先用 scan.py 掃描 + 手動 code review**
+- 流程：下載到 /tmp → 掃描 → review → 評估實用性 → 安裝
